@@ -1,289 +1,256 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Coffee Moment Roastery</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Coffee Moment Roastery</title>
+    <style>
+        :root {
+            --bg-color: #f2f0eb;
+            --text-color: #333;
+            --accent-color: #4a3f35;
+            --serif-font: "Times New Roman", "Source Serif Pro", serif;
+        }
 
-<!-- 字体 -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Source+Serif+4:opsz,wght@8..60,300;400&display=swap" rel="stylesheet">
+        body {
+            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--serif-font);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
 
-<style>
-:root {
-  --bg-color: #f2f0eb;
-  --text-color: #333;
-  --accent-color: #4a3f35;
-  --serif-font: "Source Serif 4", "Noto Serif SC", serif;
-  --sans-font: "Inter", "PingFang SC", "Helvetica Neue", sans-serif;
-}
+        [data-lang="en"] { display: none; } 
 
-body {
-  margin: 0;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  font-family: var(--serif-font);
-  line-height: 1.8;
-  overflow-x: hidden;
-}
+        nav {
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 100;
+            background: rgba(242, 240, 235, 0.9);
+            backdrop-filter: blur(10px);
+        }
 
-[data-lang="en"] { display: none; }
+        .menu-trigger { cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; }
+        .logo { font-size: 1.1rem; letter-spacing: 3px; font-weight: bold; text-transform: uppercase; }
+        .lang-toggle { cursor: pointer; font-size: 0.85rem; border-bottom: 1px solid #333; padding-bottom: 2px; }
 
-/* ================= 导航 ================= */
-nav {
-  padding: 28px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 100;
-  background: rgba(242,240,235,0.88);
-  backdrop-filter: blur(12px);
-  box-sizing: border-box;
-}
+        .side-menu {
+            position: fixed; top: 0; left: -100%; width: 350px; height: 100vh;
+            background: #fff; z-index: 1000; transition: 0.5s cubic-bezier(0.77,0.2,0.05,1.0); padding: 80px 40px;
+            display: flex; flex-direction: column; box-shadow: 10px 0 30px rgba(0,0,0,0.05);
+        }
+        .side-menu.active { left: 0; }
+        .close-btn { position: absolute; top: 30px; right: 40px; cursor: pointer; font-size: 1.2rem; }
+        .menu-links { margin-top: 40px; }
+        .menu-links a { display: block; font-size: 1.4rem; color: #333; text-decoration: none; margin-bottom: 20px; transition: 0.3s; }
+        .menu-links a:hover { opacity: 0.5; padding-left: 5px; }
+        
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); z-index: 999; display: none; }
+        .overlay.active { display: block; }
 
-.menu-trigger {
-  cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: 0.8rem;
-  font-family: var(--sans-font);
-}
+        header { padding: 160px 40px 60px; }
+        .hero-image { 
+            width: 100%; 
+            height: 70vh; 
+            background: url('logo_001.JPEG') center/cover no-repeat; 
+            margin-bottom: 40px; 
+            background-color: #ddd;
+            position: relative;
+        }
 
-.logo {
-  font-size: 0.95rem;
-  letter-spacing: 3px;
-  font-weight: 500;
-  text-transform: uppercase;
-  font-family: var(--sans-font);
-}
+        .hero-image::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                rgba(242,240,235,0.2),
+                rgba(242,240,235,0.9)
+            );
+        }
+        
+        h1 { font-size: 2.2rem; font-weight: normal; max-width: 800px; line-height: 1.4; }
 
-.lang-toggle {
-  cursor: pointer;
-  font-size: 0.75rem;
-  opacity: 0.6;
-  border-bottom: 1px solid #333;
-}
-.lang-toggle:hover { opacity: 1; }
+        section { padding: 80px 40px; max-width: 1100px; margin: 0 auto; }
+        .grid-row { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-bottom: 100px; }
+        .grid-row img { width: 100%; border-radius: 2px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        
+        h2 { font-size: 1.6rem; font-weight: normal; margin-bottom: 25px; border-bottom: 1px solid #ddd; padding-bottom: 10px; display: inline-block; }
+        
+        .bean-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
 
-/* ================= 侧边菜单 ================= */
-.side-menu {
-  position: fixed;
-  top: 0;
-  left: -100%;
-  width: 340px;
-  height: 100vh;
-  background: #fff;
-  padding: 80px 40px;
-  transition: 0.5s cubic-bezier(.77,0,.18,1);
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-}
+        .bean-item { text-align: left; }
 
-.side-menu.active { left: 0; }
+        /* ===== 新增：豆子图片包裹 ===== */
+        .bean-image-wrap {
+            position: relative;
+            overflow: hidden;
+        }
 
-.menu-links a {
-  display: block;
-  font-size: 1.3rem;
-  margin-bottom: 22px;
-  text-decoration: none;
-  color: #333;
-  font-family: var(--sans-font);
-}
+        .bean-image-wrap img {
+            width: 100%;
+            height: auto;
+            transition: 0.4s;
+            cursor: pointer;
+            border-radius: 2px;
+        }
 
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.25);
-  display: none;
-  z-index: 999;
-}
-.overlay.active { display: block; }
+        .bean-image-wrap img:hover { transform: translateY(-8px); }
 
-/* ================= Hero ================= */
-header {
-  padding: 150px 40px 60px;
-}
+        /* ===== 新增：Hover 风味浮层 ===== */
+        .bean-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(242, 240, 235, 0.92);
+            opacity: 0;
+            transition: opacity 0.45s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-.hero-image {
-  position: relative;
-  height: 70vh;
-  background: url('logo_001.JPEG') center/cover no-repeat;
-  margin-bottom: 40px;
-}
-.hero-image::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    rgba(242,240,235,0.15),
-    rgba(242,240,235,0.9)
-  );
-}
+        .bean-image-wrap:hover .bean-overlay {
+            opacity: 1;
+        }
 
-h1 {
-  max-width: 820px;
-  font-size: 2rem;
-  font-weight: 300;
-  line-height: 1.4;
-}
+        .overlay-inner {
+            text-align: center;
+            padding: 20px;
+            transform: translateY(10px);
+            transition: transform 0.45s ease;
+        }
 
-/* ================= 内容 ================= */
-section {
-  padding: 90px 40px;
-  max-width: 1100px;
-  margin: auto;
-}
+        .bean-image-wrap:hover .overlay-inner {
+            transform: translateY(0);
+        }
 
-.grid-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-}
+        .overlay-title {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            color: #555;
+        }
 
-.grid-row img {
-  width: 100%;
-  box-shadow: 0 12px 35px rgba(0,0,0,0.06);
-}
+        .overlay-flavor {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #333;
+        }
 
-h2 {
-  font-size: 1.4rem;
-  font-weight: 400;
-  border-bottom: 1px solid #ddd;
-  display: inline-block;
-  padding-bottom: 8px;
-}
+        .bean-info { margin-top: 15px; }
+        .bean-name { font-size: 1rem; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
+        .bean-desc { font-size: 0.85rem; color: #666; line-height: 1.6; }
 
-/* ================= 豆单 ================= */
-.bean-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
-  gap: 40px;
-  margin-top: 50px;
-}
+        .philosophy-card { background: #fff; padding: 60px; text-align: center; margin: 60px 0; }
 
-.bean-item img {
-  width: 100%;
-  transition: 0.4s;
-}
-.bean-item img:hover {
-  transform: translateY(-6px);
-}
+        .contact-grid { background: #e8e6df; padding: 80px 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
+        .button { display: inline-block; margin-top: 15px; border-bottom: 1px solid #333; text-decoration: none; color: #333; font-size: 0.9rem; margin-right: 25px; }
 
-.bean-name {
-  font-family: var(--sans-font);
-  font-size: 0.9rem;
-  letter-spacing: 1px;
-  margin-top: 16px;
-}
-
-.bean-meta {
-  font-size: 0.7rem;
-  color: #999;
-  letter-spacing: 1px;
-  margin: 6px 0 10px;
-  text-transform: uppercase;
-}
-
-.bean-desc {
-  font-size: 0.85rem;
-  color: #555;
-}
-
-/* ================= 哲学 ================= */
-.philosophy-card {
-  background: #fff;
-  padding: 70px;
-  text-align: center;
-}
-
-/* ================= Reveal 动效 ================= */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: 1.2s ease;
-}
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ================= 响应式 ================= */
-@media (max-width: 768px) {
-  .grid-row { grid-template-columns: 1fr; }
-  h1 { font-size: 1.6rem; }
-}
-</style>
+        @media (max-width: 768px) { 
+            .grid-row { grid-template-columns: 1fr; gap: 40px; } 
+            .side-menu { width: 85%; }
+            h1 { font-size: 1.8rem; }
+            .bean-grid { grid-template-columns: 1fr 1fr; gap: 15px; } 
+        }
+    </style>
 </head>
 
 <body>
 
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
+<div class="side-menu" id="sideMenu">
+    <span class="close-btn" onclick="toggleMenu()">✕</span>
+    <div class="menu-links">
+        <a href="#about" onclick="toggleMenu()"><span data-lang="zh">品牌故事</span><span data-lang="en">Our Story</span></a>
+        <a href="#beans-section" onclick="toggleMenu()"><span data-lang="zh">当前豆单</span><span data-lang="en">Coffee Beans</span></a>
+        <a href="#roast" onclick="toggleMenu()"><span data-lang="zh">烘焙理念</span><span data-lang="en">Roastery</span></a>
+        <a href="#contact" onclick="toggleMenu()"><span data-lang="zh">联系我们</span><span data-lang="en">Contact</span></a>
+    </div>
+</div>
+
 <nav>
-  <div class="menu-trigger" onclick="toggleMenu()">☰ Menu</div>
-  <div class="logo">The Coffee Moment</div>
-  <div class="lang-toggle" onclick="toggleLanguage()">中文 / EN</div>
+    <div class="menu-trigger" onclick="toggleMenu()">☰ Menu</div>
+    <div class="logo">The Coffee Moment</div>
+    <div class="lang-toggle" onclick="toggleLanguage()">中文 / EN</div>
 </nav>
 
-<header class="reveal">
-  <div class="hero-image"></div>
-  <h1 data-lang="zh">为愿意慢下的人，保留一段属于咖啡的时间。</h1>
-  <h1 data-lang="en">Preserving a moment for coffee, for those willing to slow down.</h1>
+<header>
+    <div class="hero-image"></div>
+    <h1 data-lang="zh">为愿意慢下的人，保留一段属于咖啡的时间。</h1>
+    <h1 data-lang="en">Preserving a moment for coffee, for those willing to slow down.</h1>
 </header>
 
-<section class="reveal">
-  <h2 data-lang="zh">当前豆单</h2>
-  <h2 data-lang="en">Current Offerings</h2>
+<section id="beans-section">
+    <h2 data-lang="zh">当前豆单</h2>
+    <h2 data-lang="en">Current Offerings</h2>
 
-  <div class="bean-grid">
-    <div class="bean-item">
-      <img src="ethiopia_sidama.png">
-      <div class="bean-name">Ethiopia Sidama Bona</div>
-      <div class="bean-meta">Washed · Ethiopia</div>
-      <div class="bean-desc">青柠皮、佛手柑、樱草与杏子。轻盈干净。</div>
-    </div>
+    <div class="bean-grid">
 
-    <div class="bean-item">
-      <img src="costa_rica.png">
-      <div class="bean-name">Costa Rica Tarrazú</div>
-      <div class="bean-meta">Natural · Costa Rica</div>
-      <div class="bean-desc">梅酒、红酒、金葡萄干，浓郁酒香。</div>
+        <!-- Ethiopia Sidama -->
+        <div class="bean-item">
+            <div class="bean-image-wrap">
+                <img src="ethiopia_sidama.png" alt="Sidama">
+                <div class="bean-overlay">
+                    <div class="overlay-inner">
+                        <div class="overlay-title">Ethiopia · Sidama</div>
+                        <div class="overlay-flavor">Lime · Bergamot<br>Floral · Clean</div>
+                    </div>
+                </div>
+            </div>
+            <div class="bean-info">
+                <div class="bean-name">Ethiopia Sidama Bona</div>
+                <div class="bean-desc" data-lang="zh">水洗。青柠皮、佛手柑、樱草与杏子。</div>
+                <div class="bean-desc" data-lang="en">Washed. Lime zest, Bergamot, Primrose, Apricot.</div>
+            </div>
+        </div>
+
+        <!-- Costa Rica -->
+        <div class="bean-item">
+            <div class="bean-image-wrap">
+                <img src="costa_rica.png" alt="Costa Rica">
+                <div class="bean-overlay">
+                    <div class="overlay-inner">
+                        <div class="overlay-title">Costa Rica · Tarrazú</div>
+                        <div class="overlay-flavor">Umeshu · Red Wine<br>Berry · Raisin</div>
+                    </div>
+                </div>
+            </div>
+            <div class="bean-info">
+                <div class="bean-name">Costa Rica Tarrazú</div>
+                <div class="bean-desc" data-lang="zh">慢速日晒。梅酒、红酒、莓果。</div>
+                <div class="bean-desc" data-lang="en">Natural. Umeshu, Red Wine, Berry.</div>
+            </div>
+        </div>
+
     </div>
-  </div>
 </section>
-
-<footer style="padding:40px;text-align:center;font-size:0.7rem;opacity:.4;">
-© 2024 THE COFFEE MOMENT ROASTERY
-</footer>
 
 <script>
 let currentLang = 'zh';
-function toggleLanguage(){
-  currentLang = currentLang === 'zh' ? 'en' : 'zh';
-  document.querySelectorAll('[data-lang="zh"]').forEach(el => el.style.display = currentLang === 'zh' ? 'block':'none');
-  document.querySelectorAll('[data-lang="en"]').forEach(el => el.style.display = currentLang === 'en' ? 'block':'none');
+function toggleLanguage() {
+    currentLang = (currentLang === 'zh') ? 'en' : 'zh';
+    document.querySelectorAll('[data-lang="zh"]').forEach(el => el.style.display = (currentLang === 'zh' ? 'block' : 'none'));
+    document.querySelectorAll('[data-lang="en"]').forEach(el => el.style.display = (currentLang === 'en' ? 'block' : 'none'));
 }
 
-function toggleMenu(){
-  document.getElementById('overlay').classList.toggle('active');
+function toggleMenu() {
+    document.getElementById('sideMenu').classList.toggle('active');
+    document.getElementById('overlay').classList.toggle('active');
 }
-
-const reveals = document.querySelectorAll('.reveal');
-window.addEventListener('scroll', ()=>{
-  reveals.forEach(el=>{
-    if(el.getBoundingClientRect().top < window.innerHeight * 0.85){
-      el.classList.add('active');
-    }
-  });
-});
 </script>
 
 </body>
 </html>
-
