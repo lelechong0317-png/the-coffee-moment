@@ -93,5 +93,122 @@
         .btn-wa { background: #25D366; }
         .btn-map { background: var(--accent-color); }
 
-        footer { padding: 3rem 2rem; text-align: center; background: #f4eee8; font-size: 0.8rem; color: #
+        footer { padding: 3rem 2rem; text-align: center; background: #f4eee8; font-size: 0.8rem; color: #888; }
+    </style>
+</head>
+<body>
 
+    <button class="lang-switch" onclick="toggleLang()" id="langBtn">EN / 中文</button>
+
+    <nav><div class="logo">The Coffee Moment</div></nav>
+
+    <header>
+        <h1>The Coffee Moment Roastery</h1>
+        <p lang="zh">为愿意慢下的人，保留一段属于咖啡的时间</p>
+        <p lang="en">For those who slow down, keep a moment for coffee</p>
+    </header>
+
+    <section>
+        <div lang="zh" style="text-align: center;">
+            <p>我们相信，咖啡不只是提神的饮品，而是一种生活里的停顿点。<br>
+            一次注水的节奏、研磨声落下的瞬间、杯中温度刚刚好的那一刻——<br>
+            这些微小却真实的细节，构成了我们所说的 <strong>Coffee Moment</strong>。</p>
+        </div>
+        <div lang="en" style="text-align: center;">
+            <p>We believe coffee is more than a caffeine fix; it's a pause in life.<br>
+            The rhythm of pouring, the sound of grinding, the perfect temperature in the cup—<br>
+            these small, authentic details define what we call the <strong>Coffee Moment</strong>.</p>
+        </div>
+        <img src="indoor.png" class="content-img" alt="Cafe Corner">
+    </section>
+
+    <section>
+        <h2 lang="zh">匠心烘焙</h2>
+        <h2 lang="en">From Bean to Cup</h2>
+        <p lang="zh">我们亲自挑选生豆，进行小批量烘焙。不追求夸张的风味，而是让豆子本身的个性被温柔地呈现——干净、平衡、有层次。每一批咖啡豆都经过反复测试，只为在杯中找到最适合它的状态。</p>
+        <p lang="en">We hand-pick green beans and roast them in small batches. We don't chase flamboyant flavors; instead, we let the bean's character emerge gently—clean, balanced, and layered. Each batch is tested repeatedly to find its best state in your cup.</p>
+        <img src="beans.png" class="content-img" alt="Coffee Details">
+    </section>
+
+    <section>
+        <h2 lang="zh">慢下来的空间</h2>
+        <h2 lang="en">A Space to Slow Down</h2>
+        <p lang="zh">店内空间以简约与温暖为基调。没有刻意营造的热闹，我们更在意的是你坐下来的那一刻，是否能感到放松。这里适合一个人安静地思考，也适合三两好友低声交谈。</p>
+        <p lang="en">Our space is built on simplicity and warmth. We avoid forced buzz, focusing instead on whether you feel relaxed the moment you sit down. It's a place for quiet reflection or low-whispered conversations with friends.</p>
+        <img src="happy.png" class="content-img" alt="Atmosphere">
+    </section>
+
+    <section>
+        <div class="philosophy-card">
+            <h2 lang="zh">我们的理念</h2>
+            <h2 lang="en">Our Philosophy</h2>
+            <div lang="zh">
+                <p>我们不追求快速扩张，更在意长期。<br>
+                比起一次性的惊艳，我们更重视日复一日的稳定与真诚。<br><br>
+                <strong>认真对待咖啡，认真对待空间，认真对待每个人。</strong></p>
+            </div>
+            <div lang="en">
+                <p>We don't pursue rapid expansion; we care about the long term.<br>
+                Instead of one-time hype, we value day-to-day stability and sincerity.<br><br>
+                <strong>Treat coffee with heart, treat space with care, treat everyone with sincerity.</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" style="background: #fff; padding: 4rem 2rem;">
+        <h2 lang="zh">联系我们</h2>
+        <h2 lang="en">Visit Us</h2>
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <p><strong lang="zh">营业时间</strong><strong lang="en">Business Hours</strong></p>
+            <p lang="zh">周一至周五 | 09:00 AM - 5:00 PM</p>
+            <p lang="en">Mon - Fri | 09:00 AM - 5:00 PM</p>
+            <p lang="zh">周六与周日 | 11:00 AM - 5:00 PM</p>
+            <p lang="en">Sat & Sun | 11:00 AM - 5:00 PM</p>
+            <p lang="zh">周六夜晚 | 08:00 PM - 12:00 AM</p>
+            <p lang="en">Saturday Night | 08:00 PM - 12:00 AM</p>
+            <p style="color: #999; font-size: 0.8rem; margin-top: 10px;">
+                <span lang="zh">( 周三周四休息 )</span>
+                <span lang="en">( Closed on Wed & Thu )</span>
+            </p>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <p><strong lang="zh">地址</strong><strong lang="en">Address</strong></p>
+            <p>The Coffee Moment Roastery</p>
+            <p style="font-size: 0.9rem; color: #666;">Kulai, Kelapa Sawit, Johor</p>
+        </div>
+
+        <div class="btn-group">
+            <a href="https://www.instagram.com/the_coffee_moment" class="btn btn-ig" target="_blank">📷 Instagram</a>
+            <a href="https://wa.me/601172984789" class="btn btn-wa" target="_blank">💬 WhatsApp Us</a>
+            <a href="https://goo.gl/maps/YOUR_MAP_LINK" class="btn btn-map" target="_blank">📍 Google Maps</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 The Coffee Moment Roastery | Kulai, Johor</p>
+    </footer>
+
+    <script>
+        let currentLang = 'zh';
+        function toggleLang() {
+            const zhElements = document.querySelectorAll('[lang="zh"]');
+            const enElements = document.querySelectorAll('[lang="en"]');
+            const btn = document.getElementById('langBtn');
+
+            if (currentLang === 'zh') {
+                zhElements.forEach(el => el.style.display = 'none');
+                enElements.forEach(el => el.style.display = 'block');
+                btn.innerText = '中文 / EN';
+                currentLang = 'en';
+            } else {
+                zhElements.forEach(el => el.style.display = 'block');
+                enElements.forEach(el => el.style.display = 'none');
+                btn.innerText = 'EN / 中文';
+                currentLang = 'zh';
+            }
+        }
+    </script>
+
+</body>
+</html>
