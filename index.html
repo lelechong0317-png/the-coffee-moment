@@ -6,10 +6,10 @@
     <title>The Coffee Moment Roastery</title>
     <style>
         :root {
-            --bg-color: #f2f0eb;      /* Aesop 风格的浅米灰 */
+            --bg-color: #f2f0eb;      /* Aesop 风格米灰 */
             --text-color: #333;
-            --accent-color: #4a3f35;  /* 深木色 */
-            --serif-font: "Times New Roman", "Source Serif Pro", serif;
+            --accent-color: #4a3f35;
+            --serif-font: "Times New Roman", "Source Han Serif CN", serif;
         }
 
         body {
@@ -18,184 +18,241 @@
             color: var(--text-color);
             font-family: var(--serif-font);
             line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
-        /* 极简导航 */
+        /* --- 导航栏 --- */
         nav {
-            padding: 40px;
+            padding: 30px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 100;
+            background: rgba(242, 240, 235, 0.85);
+            backdrop-filter: blur(10px);
         }
 
-        .logo {
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            font-weight: 500;
+        .menu-trigger {
+            cursor: pointer;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
             text-transform: uppercase;
+            display: flex;
+            align-items: center;
         }
 
-        /* 英雄页：致敬 One Half 的干净构图 */
-        header {
-            height: 90vh;
-            padding: 0 40px;
+        .lang-switch {
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text-color);
+            border-bottom: 1px solid transparent;
+        }
+        .lang-switch:hover { border-bottom: 1px solid var(--text-color); }
+
+        /* --- 侧边菜单抽屉 --- */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 400px;
+            height: 100vh;
+            background: #fff;
+            z-index: 1000;
+            transition: 0.6s cubic-bezier(0.77,0.2,0.05,1.0);
+            padding: 80px 40px;
+            box-shadow: 10px 0 30px rgba(0,0,0,0.05);
             display: flex;
             flex-direction: column;
-            justify-content: center;
         }
 
+        .side-menu.active { left: 0; }
+
+        .close-btn {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .menu-links { margin-top: 50px; }
+        .menu-links a {
+            display: block;
+            font-size: 1.6rem;
+            color: var(--text-color);
+            text-decoration: none;
+            margin-bottom: 25px;
+            transition: 0.3s;
+        }
+        .menu-links a:hover { opacity: 0.4; padding-left: 10px; }
+
+        /* 遮罩层 */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.1);
+            z-index: 999;
+            display: none;
+        }
+        .overlay.active { display: block; }
+
+        /* --- 内容区块 --- */
+        header { padding: 150px 40px 60px; }
         .hero-image {
             width: 100%;
-            height: 60vh;
+            height: 70vh;
             background: url('logo_001.JPEG') center/cover no-repeat;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
-        header h1 {
-            font-size: 2.5rem;
-            margin: 0;
-            font-weight: normal;
-        }
+        h1 { font-size: 2rem; font-weight: normal; max-width: 600px; letter-spacing: 1px; }
 
-        /* 错落排版区 */
-        section {
-            padding: 100px 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
 
-        .grid-row {
+        /* 本月豆子展示区块 */
+        .beans-intro {
+            background-color: #fff;
+            padding: 60px 40px;
+            margin: 40px 0;
+            border-radius: 2px;
+        }
+        .bean-card {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            gap: 40px;
             align-items: center;
-            margin-bottom: 120px;
+        }
+        .bean-tag {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #888;
+            margin-bottom: 10px;
+            display: block;
         }
 
-        .content-box {
-            padding-right: 20px;
-        }
-
-        .content-box h2 {
-            font-size: 1.8rem;
-            font-weight: normal;
-            margin-bottom: 30px;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 10px;
-            display: inline-block;
-        }
-
-        .img-container img {
-            width: 100%;
-            height: auto;
-            filter: grayscale(10%); /* 略微去色增加质感 */
-            transition: 0.5s;
-        }
-
-        /* 联系区：极简排版 */
         .contact-section {
             background-color: #e8e6df;
             padding: 80px 40px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 40px;
-        }
-
-        .contact-item h3 {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-            color: #666;
         }
 
         .button {
             display: inline-block;
             margin-top: 15px;
-            padding: 10px 0;
             color: var(--text-color);
             text-decoration: none;
             border-bottom: 1px solid var(--text-color);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             margin-right: 20px;
         }
 
-        footer {
-            padding: 40px;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            opacity: 0.5;
-        }
-
-        /* 移动端适配 */
         @media (max-width: 768px) {
-            .grid-row { grid-template-columns: 1fr; gap: 30px; }
-            header h1 { font-size: 1.8rem; }
+            .side-menu { width: 85%; }
+            .bean-card { grid-template-columns: 1fr; }
+            .grid-row { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+    <div class="side-menu" id="sideMenu">
+        <span class="close-btn" onclick="toggleMenu()">✕ Close</span>
+        <div style="margin-top: 40px;">
+            <a href="#" class="lang-switch">EN</a> / <a href="#" class="lang-switch" style="font-weight: bold;">中文</a>
+        </div>
+        <div class="menu-links">
+            <a href="#monthly-beans" onclick="toggleMenu()">本月豆子</a>
+            <a href="#about" onclick="toggleMenu()">关于古来烘焙工坊</a>
+            <a href="https://www.instagram.com/the_coffee_moment" target="_blank">Instagram</a>
+            <a href="#contact" onclick="toggleMenu()">联系我们</a>
+        </div>
+        <div style="margin-top: auto; font-size: 0.75rem; opacity: 0.5; line-height: 2;">
+            THE COFFEE MOMENT ROASTERY<br>
+            Kulai, Kelapa Sawit, Johor.
+        </div>
+    </div>
+
     <nav>
-        <div class="logo">The Coffee Moment</div>
+        <div class="menu-trigger" onclick="toggleMenu()">
+            <span style="margin-right: 12px; font-size: 1.2rem;">☰</span> MENU
+        </div>
+        <div class="logo" style="letter-spacing: 4px;">The Coffee Moment</div>
+        <div><a href="#" class="lang-switch">EN</a></div>
     </nav>
 
     <header>
         <div class="hero-image"></div>
-        <h1>为愿意慢下的人，<br>保留一段属于咖啡的时间。</h1>
+        <h1>让每一口咖啡，<br>都成为你慢下来的瞬间。</h1>
     </header>
 
-    <section>
-        <div class="grid-row">
-            <div class="content-box">
-                <h2>The Concept</h2>
-                <p>我们相信，咖啡不只是提神的饮品，而是一种生活里的停顿点。一次注水的节奏、研磨声落下的瞬间、杯中温度刚刚好的那一刻——这些微小却真实的细节，构成了我们所说的 Coffee Moment。</p>
-            </div>
-            <div class="img-container">
-                <img src="indoor.png" alt="Atmosphere">
+    <section id="monthly-beans">
+        <span class="bean-tag">Monthly Selection / 2月推荐</span>
+        <div class="beans-intro">
+            <div class="bean-card">
+                <div>
+                    <img src="beans.png" alt="Monthly Coffee" style="width: 100%; filter: sepia(20%);">
+                </div>
+                <div>
+                    <h2 style="font-weight: normal; font-size: 1.8rem; margin-top: 0;">埃塞俄比亚 · 耶加雪菲</h2>
+                    <p style="color: #666; font-style: italic; margin-bottom: 25px;">Ethiopia Yirgacheffe - G1 Wash</p>
+                    <p><strong>风味描述：</strong> 茉莉花香、柠檬皮、佛手柑、清澈的红茶余韵。</p>
+                    <p>这是我们本月最爱的水洗豆。轻盈的酸质伴随着优雅的花香，像极了古来清晨的第一缕阳光。</p>
+                    <a href="https://wa.me/601172984789" class="button">询问/预订咖啡豆</a>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div class="grid-row" style="direction: rtl;">
-            <div class="content-box" style="direction: ltr;">
-                <h2>Small Batch Roast</h2>
-                <p>我们亲自挑选生豆，根据产地、处理法与风味进行小批量烘焙。不追求夸张的风味，而是让豆子本身的个性被温柔地呈现——干净、平衡、有层次。</p>
+    <section id="about">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
+            <div>
+                <h2 style="font-weight: normal; border-bottom: 1px solid #ccc; padding-bottom: 10px; display: inline-block;">Our Story</h2>
+                <p>我们并不急于表达，而是希望通过咖啡豆的香气告诉你：慢下来，是一件值得的事。在古来（Kulai）的小巷里，我们用心记录每一批次豆子的性格。</p>
             </div>
-            <div class="img-container">
-                <img src="beans.png" alt="Roasting">
+            <div>
+                <img src="indoor.png" alt="Interior" style="width: 100%;">
             </div>
         </div>
     </section>
 
     <div class="contact-section" id="contact">
-        <div class="contact-item">
-            <h3>Opening Hours</h3>
-            <p>Mon - Fri: 09:00 - 17:00</p>
-            <p>Sat - Sun: 11:00 - 17:00</p>
-            <p>Sat Night: 20:00 - 00:00</p>
-            <p style="font-style: italic; color: #888;">Closed on Wed & Thu</p>
+        <div>
+            <h3 style="font-size: 0.8rem; text-transform: uppercase; color: #777;">Business Hours</h3>
+            <p>Mon - Fri: 09:00 - 17:00<br>Sat - Sun: 11:00 - 17:00<br>Sat Night: 20:00 - 00:00</p>
         </div>
-
-        <div class="contact-item">
-            <h3>Location</h3>
-            <p>The Coffee Moment Roastery</p>
-            <p>Kelapa Sawit, Kulai, Johor</p>
-            <a href="http://googleusercontent.com/maps.google.com/5" class="button">Google Maps</a>
+        <div>
+            <h3 style="font-size: 0.8rem; text-transform: uppercase; color: #777;">Location</h3>
+            <p>TheCoffeeMomentRoastery</p>
+            <a href="http://googleusercontent.com/maps.google.com/6" class="button">Google Maps</a>
         </div>
-
-        <div class="contact-item">
-            <h3>Connect</h3>
+        <div>
+            <h3 style="font-size: 0.8rem; text-transform: uppercase; color: #777;">Social</h3>
             <a href="https://www.instagram.com/the_coffee_moment" class="button">Instagram</a>
             <a href="https://wa.me/601172984789" class="button">WhatsApp</a>
         </div>
     </div>
 
-    <footer>
-        © 2024 The Coffee Moment Roastery | Johor, Malaysia
+    <footer style="padding: 60px 40px; text-align: center; font-size: 0.7rem; opacity: 0.3; letter-spacing: 3px;">
+        © 2024 THE COFFEE MOMENT ROASTERY
     </footer>
 
+    <script>
+        function toggleMenu() {
+            document.getElementById('sideMenu').classList.toggle('active');
+            document.getElementById('overlay').classList.toggle('active');
+        }
+    </script>
 </body>
 </html>
-
