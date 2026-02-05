@@ -118,12 +118,20 @@
     <div class="overlay-bg" id="overlay" onclick="toggleMenu()"></div>
     
     <div class="side-menu" id="sideMenu">
-        <span style="position:absolute; top:40px; right:40px; cursor:pointer; font-size:1.5rem;" onclick="toggleMenu()">✕</span>
+        <div class="close-btn" onclick="toggleMenu()">✕</div>
         <div class="menu-links">
-            <a href="#about" onclick="toggleMenu()"><span data-lang="zh">品牌故事</span><span data-lang="en">Story</span></a>
-            <a href="#beans-section" onclick="toggleMenu()"><span data-lang="zh">当前豆单</span><span data-lang="en">Beans</span></a>
-            <a href="#roast" onclick="toggleMenu()"><span data-lang="zh">烘焙理念</span><span data-lang="en">Roastery</span></a>
-            <a href="#contact" onclick="toggleMenu()"><span data-lang="zh">联系我们</span><span data-lang="en">Contact</span></a>
+            <a href="#about" data-num="01" onclick="toggleMenu()">
+                <span data-lang="zh">品牌故事</span><span data-lang="en">Story</span>
+            </a>
+            <a href="#beans-section" data-num="02" onclick="toggleMenu()">
+                <span data-lang="zh">当前豆单</span><span data-lang="en">Beans</span>
+            </a>
+            <a href="#roast" data-num="03" onclick="toggleMenu()">
+                <span data-lang="zh">烘焙理念</span><span data-lang="en">Roastery</span>
+            </a>
+            <a href="#contact" data-num="04" onclick="toggleMenu()">
+                <span data-lang="zh">联系我们</span><span data-lang="en">Contact</span>
+            </a>
         </div>
     </div>
 
@@ -276,4 +284,5 @@
     </script>
 </body>
 </html>
+
 
