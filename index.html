@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Coffee Moment Roastery</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500&family=Inter:wght@200;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@200;400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #f4f2ee; /* 极简暖灰，类似纸张质感 */
-            --text-color: #333333;
-            --accent-color: #5b544d;
+            --bg-color: #f2f0eb; 
+            --text-color: #2a2a2a;
+            --accent-color: #4a3f35;
             --serif-font: 'Cormorant Garamond', serif;
             --sans-font: 'Inter', sans-serif;
-            --transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+            --transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * { box-sizing: border-box; }
@@ -22,118 +22,179 @@
             color: var(--text-color); 
             font-family: var(--sans-font); 
             line-height: 1.8; 
-            overflow-x: hidden; 
-            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            background-image: radial-gradient(#d1cfc9 0.5px, transparent 0.5px); /* 极微小的网格点状背景，增加质感 */
+            background-size: 30px 30px;
         }
 
         [data-lang="en"] { display: none; }
 
-        /* --- 导航 --- */
+        /* --- 装饰性背景几何 (新增) --- */
+        .geo-circle {
+            position: absolute;
+            border: 1px solid rgba(0,0,0,0.04);
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- 导航栏 --- */
         nav {
             padding: 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 100;
-            transition: var(--transition);
+            top: 0; width: 100%; z-index: 100;
+            background: rgba(242, 240, 235, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
-
-        .menu-trigger { cursor: pointer; text-transform: uppercase; letter-spacing: 3px; font-size: 0.7rem; }
-        .logo { font-family: var(--serif-font); font-size: 1.5rem; letter-spacing: 5px; text-transform: uppercase; font-weight: 500; }
-        .lang-toggle { cursor: pointer; font-size: 0.7rem; letter-spacing: 1px; border-bottom: 1px solid rgba(0,0,0,0.1); }
+        .logo { font-family: var(--serif-font); font-size: 1.3rem; letter-spacing: 5px; text-transform: uppercase; font-weight: 600; }
+        .menu-trigger { cursor: pointer; text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; border: 1px solid rgba(0,0,0,0.2); padding: 5px 15px; border-radius: 50px; }
 
         /* --- 侧边菜单 --- */
         .side-menu {
             position: fixed; top: 0; left: -100%; width: 400px; height: 100vh;
             background: #fff; z-index: 1000; transition: var(--transition); padding: 100px 60px;
-            display: flex; flex-direction: column;
         }
         .side-menu.active { left: 0; }
-        .close-btn { position: absolute; top: 40px; right: 40px; cursor: pointer; font-size: 1.5rem; }
-        .menu-links a { display: block; font-family: var(--serif-font); font-size: 2.2rem; color: var(--text-color); text-decoration: none; margin-bottom: 30px; }
-        
         .overlay-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.1); z-index: 999; display: none; backdrop-filter: blur(5px); }
         .overlay-bg.active { display: block; }
 
-        /* --- 滚动淡入动效 --- */
+        /* --- 滚动淡入 --- */
         .reveal { opacity: 0; transform: translateY(40px); transition: var(--transition); }
         .reveal.visible { opacity: 1; transform: translateY(0); }
 
-        /* --- Header --- */
-        header { padding: 200px 40px 100px; max-width: 1300px; margin: 0 auto; }
-        .hero-image { width: 100%; height: 75vh; background: url('logo_001.JPEG') center/cover no-repeat; margin-bottom: 60px; }
-        h1 { font-family: var(--serif-font); font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 400; max-width: 800px; }
+        /* --- Header / Hero --- */
+        header { 
+            padding: 220px 40px 120px; 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            position: relative; 
+            overflow: visible;
+        }
+        .hero-image { 
+            width: 100%; height: 70vh; 
+            background: url('logo_001.JPEG') center/cover no-repeat; 
+            margin-bottom: 60px; 
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1); /* 增加投影立体感 */
+        }
+        h1 { 
+            font-family: var(--serif-font); 
+            font-size: clamp(2rem, 5vw, 3.8rem); 
+            font-weight: 400; 
+            max-width: 900px; 
+            line-height: 1.2;
+            position: relative;
+            text-shadow: 1px 1px 0px #fff, 3px 3px 10px rgba(0,0,0,0.05); /* 字体立体投影 */
+        }
+        /* 标题背后的装饰 */
+        h1::before {
+            content: ""; position: absolute; left: -40px; top: -20px;
+            width: 120px; height: 120px;
+            background: rgba(74, 63, 53, 0.03); border-radius: 50%; z-index: -1;
+        }
 
-        /* --- 章节排版 --- */
-        section { padding: 100px 40px; max-width: 1200px; margin: 0 auto; }
-        .grid-row { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-bottom: 60px; }
-        .grid-row img { width: 100%; border-radius: 2px; }
-        h2 { font-family: var(--serif-font); font-size: 2rem; font-weight: 400; margin-bottom: 30px; letter-spacing: 2px; border-bottom: 1px solid #ddd; display: inline-block; padding-bottom: 10px; }
-        p { font-size: 0.95rem; color: #555; }
+        /* --- 章节布局 --- */
+        section { padding: 120px 40px; max-width: 1200px; margin: 0 auto; position: relative; }
+        .grid-row { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; margin-bottom: 60px; }
+        .img-wrapper { 
+            position: relative; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08); 
+            transition: var(--transition);
+        }
+        .img-wrapper:hover { transform: translateY(-10px); }
+        .grid-row img { width: 100%; display: block; }
+        
+        h2 { 
+            font-family: var(--serif-font); 
+            font-size: 2.2rem; 
+            font-weight: 400; 
+            margin-bottom: 30px; 
+            letter-spacing: 2px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 20px;
+        }
 
-        /* --- 核心：豆单悬停交互 --- */
-        .bean-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 40px; margin-top: 40px; }
-        .bean-item { position: relative; background: #fff; border-radius: 3px; overflow: hidden; }
+        /* --- 豆单区 (强化弹窗) --- */
+        .bean-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 50px; margin-top: 60px; }
+        .bean-item { 
+            background: #fff; border-radius: 4px; overflow: hidden; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02); transition: var(--transition);
+        }
+        .bean-item:hover { box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
         .bean-card { position: relative; width: 100%; padding-top: 135%; overflow: hidden; }
-        .bean-card img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s ease; }
+        .bean-card img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.5s ease; }
 
         .bean-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(40, 38, 36, 0.88); backdrop-filter: blur(10px);
+            background: rgba(42, 42, 42, 0.9); backdrop-filter: blur(12px);
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            padding: 30px; text-align: center; color: #fff; opacity: 0; transition: var(--transition);
+            padding: 40px; text-align: center; color: #fff; opacity: 0; transition: var(--transition);
         }
         .bean-item:hover .bean-overlay { opacity: 1; }
         .bean-item:hover .bean-card img { transform: scale(1.1); }
-        .overlay-title { font-family: var(--serif-font); font-size: 1.4rem; margin-bottom: 10px; }
-        .overlay-desc { font-size: 0.8rem; font-weight: 200; line-height: 1.6; border-top: 1px solid rgba(255,255,255,0.2); margin-top: 15px; padding-top: 15px; }
+        .overlay-title { font-family: var(--serif-font); font-size: 1.6rem; margin-bottom: 20px; }
+        .overlay-desc { font-size: 0.85rem; font-weight: 300; line-height: 1.8; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; }
 
-        .bean-footer-name { padding: 20px; text-align: center; font-family: var(--serif-font); font-size: 1rem; letter-spacing: 1px; }
+        .bean-footer-name { padding: 30px; text-align: center; font-family: var(--serif-font); font-size: 1.2rem; letter-spacing: 1px; }
 
         /* --- 理念卡片 --- */
-        .philosophy-card { background: #fff; padding: 100px 60px; text-align: center; margin: 80px 0; border: 1px solid #eee; }
+        .philosophy-card { 
+            background: #fff; padding: 120px 80px; text-align: center; margin: 100px 0; 
+            border-radius: 4px; box-shadow: 0 40px 80px rgba(0,0,0,0.05); 
+            position: relative; overflow: hidden;
+        }
+        .philosophy-card::after {
+            content: "COFFEE MOMENT";
+            position: absolute; bottom: -20px; right: -10px;
+            font-size: 8rem; font-family: var(--serif-font); color: rgba(0,0,0,0.02); font-weight: 800;
+        }
 
-        /* --- 页脚联系方式 --- */
-        .contact-grid { background: #eceae3; padding: 100px 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 60px; }
-        .contact-grid h3 { font-family: var(--serif-font); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 3px; }
-        .button { display: inline-block; margin-top: 15px; border-bottom: 1px solid #333; text-decoration: none; color: #333; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin-right: 20px; }
+        /* --- 页脚联系 --- */
+        .contact-grid { background: #e8e6df; padding: 120px 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 80px; position: relative; }
+        .contact-grid h3 { font-family: var(--serif-font); font-size: 1.2rem; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 30px; opacity: 0.8; }
+        .button { display: inline-block; margin-top: 20px; border-bottom: 1px solid var(--text-color); text-decoration: none; color: var(--text-color); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; padding-bottom: 5px; margin-right: 30px;}
+        .button:hover { opacity: 0.5; padding-left: 10px; }
 
         @media (max-width: 768px) {
-            .grid-row { grid-template-columns: 1fr; gap: 40px; }
-            .side-menu { width: 100%; }
-            .bean-overlay { position: static; opacity: 1; background: transparent; backdrop-filter: none; color: var(--text-color); padding: 0 20px 20px; }
+            .grid-row { grid-template-columns: 1fr; gap: 60px; }
+            .side-menu { width: 85%; }
+            header { padding: 160px 25px 80px; }
+            .bean-overlay { position: static; opacity: 1; background: transparent; backdrop-filter: none; color: var(--text-color); padding: 0 30px 30px; }
             .overlay-title { color: var(--text-color); }
-            .overlay-desc { color: #666; border-color: #eee; }
-            .bean-footer-name { display: none; }
+            .overlay-desc { color: #666; }
         }
     </style>
 </head>
 <body>
 
+    <div class="geo-circle" style="width: 400px; height: 400px; top: 100px; right: -200px;"></div>
+    <div class="geo-circle" style="width: 300px; height: 300px; top: 1200px; left: -150px;"></div>
+
     <div class="overlay-bg" id="overlay" onclick="toggleMenu()"></div>
+    
     <div class="side-menu" id="sideMenu">
-        <span class="close-btn" onclick="toggleMenu()">✕</span>
-        <div class="menu-links">
-            <a href="#about" onclick="toggleMenu()"><span data-lang="zh">品牌故事</span><span data-lang="en">Story</span></a>
-            <a href="#beans-section" onclick="toggleMenu()"><span data-lang="zh">当前豆单</span><span data-lang="en">Beans</span></a>
-            <a href="#roast" onclick="toggleMenu()"><span data-lang="zh">烘焙理念</span><span data-lang="en">Roastery</span></a>
-            <a href="#contact" onclick="toggleMenu()"><span data-lang="zh">联系我们</span><span data-lang="en">Contact</span></a>
+        <span style="position:absolute; top:40px; right:40px; cursor:pointer; font-size:1.5rem;" onclick="toggleMenu()">✕</span>
+        <div style="margin-top: 60px;">
+            <a href="#about" style="display:block; font-family:var(--serif-font); font-size:2.5rem; text-decoration:none; color:var(--text-color); margin-bottom:30px;" onclick="toggleMenu()"><span data-lang="zh">品牌故事</span><span data-lang="en">Story</span></a>
+            <a href="#beans-section" style="display:block; font-family:var(--serif-font); font-size:2.5rem; text-decoration:none; color:var(--text-color); margin-bottom:30px;" onclick="toggleMenu()"><span data-lang="zh">当前豆单</span><span data-lang="en">Beans</span></a>
+            <a href="#roast" style="display:block; font-family:var(--serif-font); font-size:2.5rem; text-decoration:none; color:var(--text-color); margin-bottom:30px;" onclick="toggleMenu()"><span data-lang="zh">烘焙理念</span><span data-lang="en">Roastery</span></a>
+            <a href="#contact" style="display:block; font-family:var(--serif-font); font-size:2.5rem; text-decoration:none; color:var(--text-color); margin-bottom:30px;" onclick="toggleMenu()"><span data-lang="zh">联系我们</span><span data-lang="en">Contact</span></a>
         </div>
     </div>
 
     <nav id="navbar">
         <div class="menu-trigger" onclick="toggleMenu()">Menu</div>
         <div class="logo">The Coffee Moment</div>
-        <div class="lang-toggle" onclick="toggleLanguage()">中文 / EN</div>
+        <div class="lang-toggle" onclick="toggleLanguage()" style="font-weight: 600;">ZH / EN</div>
     </nav>
 
     <header class="reveal">
-        <div class="hero-image"></div>
-        <h1 data-lang="zh">为愿意慢下的人，保留一段属于咖啡的时间。</h1>
+        <h1 data-lang="zh">为愿意慢下的人，<br>保留一段属于咖啡的时间。</h1>
         <h1 data-lang="en">Preserving a moment for coffee, for those willing to slow down.</h1>
+        <div class="hero-image"></div>
     </header>
 
     <section id="about" class="reveal">
@@ -143,7 +204,7 @@
                 <p data-lang="zh">我们相信，咖啡不只是提神的饮品，而是一种生活里的停顿点。一次注水的节奏、研磨声落下的瞬间、杯中温度刚刚好的那一刻——这些微小却真实的细节，构构成我们所说的 Coffee Moment。</p>
                 <p data-lang="en">We believe coffee is more than just a drink; it's a pause in life. The rhythm of pouring, the sound of grinding, the warmth of the cup—these small details define a 'Coffee Moment'.</p>
             </div>
-            <img src="indoor.png" alt="Interior">
+            <div class="img-wrapper"><img src="indoor.png" alt="Interior"></div>
         </div>
     </section>
 
@@ -200,11 +261,11 @@
     <section id="roast" class="reveal">
         <div class="grid-row" style="direction: rtl;">
             <div style="direction: ltr;">
-                <h2 data-lang="zh">从生豆到杯中</h2><h2 data-lang="en">From Bean to Cup</h2>
+                <h2 data-lang="zh">从生豆到杯中</h2><h2 data-lang="en">Craftsmanship</h2>
                 <p data-lang="zh">我们亲自挑选生豆，进行小批量烘焙。不追求夸张的风味，而是让豆子本身的个性被温柔地呈现——干净、平衡、有层次。每一批咖啡豆都经过反复测试，只为找到最适合它的状态。</p>
-                <p data-lang="en">We hand-select green beans and roast in small batches. We let the bean's natural character emerge gently—clean, balanced, and layered. Each batch is tested to find its perfect expression.</p>
+                <p data-lang="en">We hand-select green beans and roast in small batches. We let the bean's natural character emerge gently—clean, balanced, and layered.</p>
             </div>
-            <img src="beans.png" alt="Craft">
+            <div class="img-wrapper"><img src="beans.png" alt="Craft"></div>
         </div>
     </section>
 
@@ -213,9 +274,9 @@
             <div>
                 <h2 data-lang="zh">慢活空间</h2><h2 data-lang="en">The Space</h2>
                 <p data-lang="zh">店内空间以简约与温暖为基调。没有刻意营造的热闹，我们更在意的是你坐下来的那一刻，是否能感到放松。这里适合一个人安静地思考，也适合三两好友低声交谈。</p>
-                <p data-lang="en">Our space is built on simplicity and warmth. We avoid forced buzz, focusing on relaxation. A place for quiet reflection or soft conversations.</p>
+                <p data-lang="en">Our space is built on simplicity and warmth. We focus on the moment you sit down, ensuring you feel relaxed.</p>
             </div>
-            <img src="happy.png" alt="Atmosphere">
+            <div class="img-wrapper"><img src="happy.png" alt="Atmosphere"></div>
         </div>
     </section>
 
@@ -223,18 +284,18 @@
         <div class="philosophy-card">
             <h2 data-lang="zh">我们的理念</h2><h2 data-lang="en">Our Philosophy</h2>
             <p data-lang="zh">我们不追求快速扩张，更在意长期。比起一次性的惊艳，我们更重视日复一日的稳定与真诚。认真对待咖啡，认真对待空间，认真对待每个人。</p>
-            <p data-lang="en">We prioritize longevity over rapid expansion. We value daily stability and sincerity over temporary hype. Treating coffee, space, and people with genuine care.</p>
+            <p data-lang="en">We prioritize longevity over rapid expansion. We value daily stability and sincerity over temporary hype.</p>
         </div>
     </section>
 
     <div class="contact-grid" id="contact">
         <div>
-            <h3 data-lang="zh">营业时间</h3><h3 data-lang="en">Business Hours</h3>
+            <h3 data-lang="zh">营业时间</h3><h3 data-lang="en">Hours</h3>
             <p data-lang="zh">周一至周五 | 09:00 - 17:00<br>周六与周日 | 11:00 - 17:00<br>周六夜晚 | 20:00 - 00:00<br><small>( 周三周四休息 )</small></p>
-            <p data-lang="en">Mon - Fri | 09:00 - 17:00<br>Sat - Sun | 11:00 - 17:00<br>Sat Night | 20:00 - 00:00<br><small>( Closed on Wed & Thu )</small></p>
+            <p data-lang="en">Mon - Fri | 09:00 - 17:00 / Sat - Sun | 11:00 - 17:00 / Sat Night | 20:00 - 00:00</p>
         </div>
         <div>
-            <h3 data-lang="zh">到访The Coffee Moment</h3><h3 data-lang="en">Visit Us</h3>
+            <h3 data-lang="zh">到访空间</h3><h3 data-lang="en">Visit Us</h3>
             <p>Kelapa Sawit, Kulai, Johor</p>
             <a href="https://maps.app.goo.gl/fNzh1RstH9px1zHg9?g_st=ic，你把它添加进去，然后我添加多这四只豆子的介绍图，你把它们都加进豆子介绍的板块" class="button" target="_blank">Google Maps</a>
             <a href="https://wa.me/601172984789" class="button" target="_blank">WhatsApp</a>
@@ -245,7 +306,7 @@
         </div>
     </div>
 
-    <footer style="padding: 60px 40px; text-align: center; font-size: 0.6rem; opacity: 0.3; letter-spacing: 2px;">
+    <footer style="padding: 60px 40px; text-align: center; font-size: 0.65rem; opacity: 0.3; letter-spacing: 3px;">
         © 2024 THE COFFEE MOMENT ROASTERY
     </footer>
 
@@ -264,9 +325,10 @@
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
-            nav.style.background = window.scrollY > 50 ? 'rgba(244, 242, 238, 0.95)' : 'transparent';
+            nav.style.background = window.scrollY > 50 ? 'rgba(242, 240, 235, 0.95)' : 'rgba(242, 240, 235, 0.8)';
         });
     </script>
 </body>
